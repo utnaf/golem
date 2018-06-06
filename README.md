@@ -14,7 +14,6 @@ Start the containers and install composer dependencies:
 
 ```bash
 make up
-make composer install
 ```
 
 Now you can visit [http://localhost:8080](http://localhost:8080) or, if you want to be fancy, adding an entry to your `/etc/hosts` file with:
@@ -35,4 +34,4 @@ make sh # use the shell on the app container
 ``` 
 
 ### Disclaimer
-I'm not an expert in Docker, but this is working good for me. In any case please feel free to contribute in improving this if you feel the need by. 
+I'm not an expert in Docker, but this is working good for me. In any case please feel free to contribute in improving this if you feel the need by [writing an issue](https://github.com/utnaf/golem/issues/new).
