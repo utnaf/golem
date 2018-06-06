@@ -1,0 +1,22 @@
+{
+    "name": "utnaf/golem",
+    "description": "Despite the cool name, it's just a docker bootstrap with php, nginx and mysql.",
+    "type": "project",
+    "keywords": ["docker", "php"],
+    "homepage": "https://github.com/utnaf/golem",
+    "require": {
+        "vlucas/phpdotenv": "^2.4"
+    },
+    "license": "WTFPL",
+    "authors": [
+        {
+            "name": "Davide Effe",
+            "email": "utnaf.dev@gmail.com"
+        }
+    ],
+    "scripts": {
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ]
+    }
+}
