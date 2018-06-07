@@ -4,24 +4,26 @@
 
 ## Usage
 
-Just create a project via composer
-
+If you have composer installed just create a new golem project: 
 ```bash
 composer create-project --prefer-dist utnaf/golem another-app
 ```
 
-Start the containers and install composer dependencies:
-
+cd into the `another-app` directory and start the containers:
 ```bash
 make up
 ```
-
-Now you can visit [http://localhost:8080](http://localhost:8080) or, if you want to be fancy, adding an entry to your `/etc/hosts` file with:
+Now you can visit [http://localhost:8080](http://localhost:8080) or, if you want to be fancy, add an entry to your `/etc/hosts` file:
 ```
 127.0.0.1 app.local
 ```
-
 and then visit [http://app.local:8080](http://app.local:8080)
+
+## Install a composer package
+Maybe you have the need to install a package using the container composer version, in this case you want to use the `composer` helper:
+```bash
+make composer install psr/log
+```
 
 ## Helpers
 There are some other helpers in the Makefile to help you interacting with your docker containers:
@@ -34,4 +36,4 @@ make sh # use the shell on the app container
 ``` 
 
 ### Disclaimer
-I'm not an expert in Docker, but this is working good for me. In any case please feel free to contribute in improving this if you feel the need by [writing an issue](https://github.com/utnaf/golem/issues/new).
+I'm not an expert in Docker, but this is working good for me. In any case please feel free to contribute in improving this if you feel the need by [writing an issue](https://github.com/utnaf/golem/issues/new). Any help or comment is highly appreciated.
