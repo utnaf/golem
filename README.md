@@ -18,10 +18,10 @@ make up
 
 Now you can visit [http://localhost:8080](http://localhost:8080) or, if you want to be fancy, adding an entry to your `/etc/hosts` file with:
 ```
-127.0.0.1 app.local [http://app.local:8080](http://app.local:8080)
+127.0.0.1 app.local
 ```
 
-and then visit 
+and then visit [http://app.local:8080](http://app.local:8080)
 
 ## Helpers
 There are some other helpers in the Makefile to help you interacting with your docker containers:
