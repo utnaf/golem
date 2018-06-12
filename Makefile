@@ -23,5 +23,12 @@ sh:
 	$(BASE_DOCKER_COMPOSE) exec app bash
 .PHONY: sh
 
+rm:
+	$(BASE_DOCKER_COMPOSE) rm -f
+.PHONY: rm
+
+reset: kill rm up
+.PHONY: reset
+
 %:
 	@:
