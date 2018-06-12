@@ -19,6 +19,9 @@ Now you can visit [http://localhost:8080](http://localhost:8080) or, if you want
 ```
 and then visit [http://app.local:8080](http://app.local:8080)
 
+#### Note for non Linux user
+If you are using any kind of docker-machine please replace `127.0.0.1` with the IP of your docker-machine.
+
 ## Install a composer package
 Maybe you have the need to install a package using the container composer version, in this case you want to use the `composer` helper:
 ```bash
