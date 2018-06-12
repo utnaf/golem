@@ -4,8 +4,7 @@ $rootDir = dirname(dirname(__FILE__));
 $appname = basename($rootDir);
 
 $filesToReplace = [
-    $rootDir . '/build/docker-compose.yml',
-    $rootDir . '/.env.example', 
+    $rootDir . '/build/docker-compose.yml'
 ];
 
 array_map(function($file) use ($appname) {
