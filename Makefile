@@ -30,8 +30,5 @@ rm:
 reset: kill rm up
 .PHONY: reset
 
-install: build up
-.PHONE: setup
-
 %:
 	@:
