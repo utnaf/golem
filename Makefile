@@ -1,7 +1,7 @@
 BASE_DOCKER_COMPOSE = docker-compose -f build/docker-compose.yml
 
 up:
-	$(BASE_DOCKER_COMPOSE) up --force-recreate -d
+	$(BASE_DOCKER_COMPOSE) up --force-recreate -d 
 .PHONY: up
 
 kill:
@@ -10,9 +10,9 @@ kill:
 
 build:
 	$(BASE_DOCKER_COMPOSE) stop \
-	&& $(BASE_DOCKER_COMPOSE) rm \
+	&& $(BASE_DOCKER_COMPOSE) rm -f \
 	&& $(BASE_DOCKER_COMPOSE) pull \
-	&& $(BASE_DOCKER_COMPOSE) build
+	&& $(BASE_DOCKER_COMPOSE) build --no-cache
 .PHONY: build
 
 composer:
@@ -29,6 +29,9 @@ rm:
 
 reset: kill rm up
 .PHONY: reset
+
+install: build up
+.PHONE: setup
 
 %:
 	@:

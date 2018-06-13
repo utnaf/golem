@@ -14,6 +14,7 @@ final class HomeController {
     }
 
     public function index() {
-        return 'Hello world! The DB is ' . ($this->db->isConnected() ? '' : 'not ') . 'connected!';
+        return 'Hello world! The DB is ' . ($this->db->isConnected() ? '' : 'not ') . 'connected!' .
+            $this->db->getLastError();
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 $rootDir = dirname(dirname(__FILE__));
-$appname = basename($rootDir);
+$appname = preg_replace('[^\s]*', '', basename($rootDir));
 
 $filesToReplace = [
     $rootDir . '/build/docker-compose.yml',
