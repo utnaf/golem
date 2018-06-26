@@ -1,4 +1,4 @@
-BASE_DOCKER_COMPOSE = docker-compose -f build/docker-compose.yml
+BASE_DOCKER_COMPOSE = docker-compose -f build/docker/docker-compose.yml
 
 up:
 	$(BASE_DOCKER_COMPOSE) up --force-recreate -d 

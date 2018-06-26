@@ -3,8 +3,8 @@ version: "3"
 services:
   web:
     build:
-      context: ../
-      dockerfile: build/web.docker
+      context: ./
+      dockerfile: web.docker
     volumes:
       - ../:/var/www:ro
     ports:
@@ -15,8 +15,8 @@ services:
 
   app:
     build:
-      context: ../
-      dockerfile: build/app.docker
+      context: ./
+      dockerfile: app.docker
     volumes:
       - ../:/var/www
 
