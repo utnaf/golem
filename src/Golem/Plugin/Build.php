@@ -3,13 +3,13 @@
 namespace Golem\Plugin;
 
 use Composer\Composer;
+use Composer\EventDispatcher\EventSubscriberInterface;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
 use Composer\Script\ScriptEvents;
-use Composer\Util\Filesystem;
 use Golem\CopyPastaService;
 
-class Build implements PluginInterface {
+class Build implements PluginInterface, EventSubscriberInterface {
     /** @var Composer */
     private $composer;
 

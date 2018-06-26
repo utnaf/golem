@@ -16,14 +16,14 @@
         "Golem\\": "src/Golem/"
     }
   },
-  "extra": {
-    "class": "Golem\\Plugin\\Build"
-  },
   "require": {
     "composer-plugin-api": "^1.1",
     "symfony/filesystem": "^2.7 || ^3.0 || ^4.0"
   },
   "require-dev": {
     "composer/composer": "^1.0"
+  },
+  "extra": {
+    "class": "Golem\\Plugin\\Build"
   }
 }
