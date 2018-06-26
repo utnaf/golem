@@ -33,7 +33,7 @@ class Build implements PluginInterface, EventSubscriberInterface {
 
     public function copyFiles() {
         try {
-            (new CopyPastaService($this->composer->getConfig()->get('vendorDir')))->moveFiles();
+            (new CopyPastaService($this->composer->getConfig()->get('vendor-dir')))->moveFiles();
         } catch (\Exception $e) {
             $this->io->writeError($e->getMessage());
             return;
