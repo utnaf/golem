@@ -1,26 +1,41 @@
 # Golem
 
-**Long story short**: I got a pretty damn good name for an app and I need something to build around it. *No clue*. So I decided to make yet another Docker bootstrap for PHP. Just to have a running environment with PHP, nginx and mysql in a few commands. I usually do this when I need to do some small stuff, tests, package testing, or whatever you have to do without a framework.
+**Long story short**: I got a pretty damn good name for an app and I need something to build around it. *No clue*. So I decided to make yet another Docker bootstrap for PHP. Just to have a running environment with PHP, nginx and mysql in a few commands. I usually do this when I need to do some small stuff, tests, package testing.
+Since is a Composer plugin, it can be use on existing projects too as long as these files does not exist:
+ * `./Makefile`
+ * `./build/docker`
+
+It will fail otherwise.
 
 ## Usage
 
-If you have composer installed just create a new golem project: 
+Is a Composer plugin, so just require it in your project. 
 ```bash
-composer create-project --prefer-dist utnaf/golem another-app
+composer require --dev utnaf/golem
 ```
 
-cd into the `another-app` directory and start the containers:
+And just run:
 ```bash
 make up
 ```
+
 Now you can visit [http://localhost:8080](http://localhost:8080) or, if you want to be fancy, add an entry to your `/etc/hosts` file:
 ```
 127.0.0.1 app.local
 ```
+
 and then visit [http://app.local:8080](http://app.local:8080)
 
-#### Note for non Linux user
+#### Note for non-Linux user
 If you are using any kind of docker-machine please replace `127.0.0.1` with the IP of your docker-machine.
+
+## Connect to the DB
+Your DB host will be named `<project dir>_database`, the database itself is `<project dir>_db`, username and password will be `root`.
+
+Ex: if your project is in the directory `my-awesome-project` the db hostname will be `myawesomeproject_database` and the DB `myawesomeproject_db`. 
+
+# Makefile
+There is a Makefile that allows you to easily interact with the docker container.
 
 ## Install a composer package
 Maybe you have the need to install a package using the container composer version, in this case you want to use the `composer` helper:
