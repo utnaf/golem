@@ -25,9 +25,7 @@ class Build implements PluginInterface, EventSubscriberInterface {
     public static function getSubscribedEvents() {
         return [
             /** @see copyFiles() */
-            ScriptEvents::POST_INSTALL_CMD => 'copyFiles',
-            /** @see copyFiles() */
-            ScriptEvents::POST_UPDATE_CMD  => 'copyFiles',
+            ScriptEvents::POST_INSTALL_CMD => 'copyFiles'
         ];
     }
 
@@ -35,7 +33,7 @@ class Build implements PluginInterface, EventSubscriberInterface {
         try {
             (new CopyPastaService($this->composer->getConfig()->get('vendor-dir')))->moveFiles();
         } catch (\Exception $e) {
-            $this->io->writeError($e->getMessage());
+            $this->io->write('<error>utnaf/golem</error>: ' . $e->getMessage());
             return;
         }
 
