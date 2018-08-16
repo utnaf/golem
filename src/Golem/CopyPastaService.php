@@ -7,6 +7,8 @@ use Symfony\Component\Filesystem\Filesystem;
 
 final class CopyPastaService {
 
+    const EXCEPTION_CODE = 42;
+
     /** @var string */
     private $vendorDir;
 
@@ -22,8 +24,8 @@ final class CopyPastaService {
         $dockerDir = $destinationDir . DIRECTORY_SEPARATOR . 'build' . DIRECTORY_SEPARATOR . 'docker';
         $makefile = $destinationDir . DIRECTORY_SEPARATOR . 'Makefile';
 
-        if($fs->exists([$dockerDir, $makefile])) {
-            throw new IOException('Files alredy exists. Aborting.');
+        if(!$fs->exists([$dockerDir, $makefile])) {
+            throw new IOException('Files alredy exists. Aborting.', static::EXCEPTION_CODE);
         }
 
         $fs->mirror($this->getResourcesDir(), $destinationDir);
