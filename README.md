@@ -14,13 +14,13 @@ Is a Composer plugin, so just require it in your project.
 composer require --dev utnaf/golem
 ```
 
-Or just add an entry to your composer.json
+Or just add an entry to your **composer.json**
 ```
+...
+"require-dev": {
     ...
-    "require-dev": {
-        ...
-        "utnaf/golem": "^1.1.1"
-    },
+    "utnaf/golem": "^1.1.1"
+},
 ```
 And run `composer install`
 

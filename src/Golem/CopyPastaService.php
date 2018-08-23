@@ -24,7 +24,7 @@ final class CopyPastaService
         $dockerDir = $destinationDir.DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'docker';
         $makefile = $destinationDir.DIRECTORY_SEPARATOR.'Makefile';
 
-        if (!$fs->exists([$dockerDir, $makefile])) {
+        if ($fs->exists([$dockerDir, $makefile])) {
             throw new IOException('Files alredy exists. Aborting.');
         }
 
