@@ -14,7 +14,19 @@ Is a Composer plugin, so just require it in your project.
 composer require --dev utnaf/golem
 ```
 
-And just run:
+Or just add an entry to your composer.json
+```
+    ...
+    "require-dev": {
+        ...
+        "utnaf/golem": "^1.1.1"
+    },
+```
+And run `composer install`
+
+### How do I make it work?
+
+Just run:
 ```bash
 make up
 ```
