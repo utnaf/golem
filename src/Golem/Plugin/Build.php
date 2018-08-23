@@ -33,7 +33,7 @@ class Build implements PluginInterface, EventSubscriberInterface
         ];
     }
 
-    public function copyFiles(CommandEvent $commandEvent)
+    public function copyFiles()
     {
         try {
             (new CopyPastaService($this->composer->getConfig()->get('vendor-dir')))->moveFiles();
