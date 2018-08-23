@@ -28,7 +28,7 @@ class Build implements PluginInterface, EventSubscriberInterface
     {
         return [
             /** @see copyFiles() */
-            ScriptEvents::POST_AUTOLOAD_DUMP => 'copyFiles',
+            ScriptEvents::PRE_AUTOLOAD_DUMP => 'copyFiles',
         ];
     }
 
