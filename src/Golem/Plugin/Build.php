@@ -4,10 +4,9 @@ namespace Golem\Plugin;
 
 use Composer\Composer;
 use Composer\EventDispatcher\EventSubscriberInterface;
-use Composer\Installer\PackageEvents;
 use Composer\IO\IOInterface;
-use Composer\Plugin\CommandEvent;
 use Composer\Plugin\PluginInterface;
+use Composer\Script\ScriptEvents;
 use Golem\CopyPastaService;
 
 class Build implements PluginInterface, EventSubscriberInterface
@@ -29,7 +28,7 @@ class Build implements PluginInterface, EventSubscriberInterface
     {
         return [
             /** @see copyFiles() */
-            PackageEvents::POST_PACKAGE_INSTALL => 'copyFiles',
+            ScriptEvents::POST_INSTALL_CMD => 'copyFiles',
         ];
     }
 
