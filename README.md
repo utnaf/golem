@@ -12,6 +12,7 @@ It will fail otherwise.
 Is a Composer plugin, so just require it in your project. 
 ```bash
 composer require --dev utnaf/golem
+composer install
 ```
 
 Or just add an entry to your **composer.json**

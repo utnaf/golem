@@ -4,9 +4,10 @@ namespace Golem\Plugin;
 
 use Composer\Composer;
 use Composer\EventDispatcher\EventSubscriberInterface;
+use Composer\Installer\PackageEvents;
 use Composer\IO\IOInterface;
+use Composer\Plugin\CommandEvent;
 use Composer\Plugin\PluginInterface;
-use Composer\Script\ScriptEvents;
 use Golem\CopyPastaService;
 
 class Build implements PluginInterface, EventSubscriberInterface
@@ -28,11 +29,11 @@ class Build implements PluginInterface, EventSubscriberInterface
     {
         return [
             /** @see copyFiles() */
-            ScriptEvents::PRE_AUTOLOAD_DUMP => 'copyFiles',
+            PackageEvents::POST_PACKAGE_INSTALL => 'copyFiles',
         ];
     }
 
-    public function copyFiles()
+    public function copyFiles(CommandEvent $commandEvent)
     {
         try {
             (new CopyPastaService($this->composer->getConfig()->get('vendor-dir')))->moveFiles();
