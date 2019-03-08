@@ -38,7 +38,7 @@ class Build implements PluginInterface, EventSubscriberInterface
             (new CopyPastaService($this->composer->getConfig()->get('vendor-dir')))->moveFiles();
         } catch (\Exception $e) {
             if ($e->getCode() !== CopyPastaService::EXCEPTION_CODE) {
-                $this->io->write('<info>utnaf/golem: '.$e->getMessage().'</info>');
+                $this->io->write('<error>utnaf/golem: '.$e->getMessage().'</error>');
             }
 
             return;

@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  {appname}_web:
+    container_name: {appname}_web
+    build:
+      context: ./build/docker/php
+    volumes:
+      - ./:/var/www/html:ro
+    ports:
+      - 80:80
+    depends_on:
+      - {appname}_database
+
+  {appname}_database:
+    container_name: {appname}_database
+    image: mariadb:10.3-bionic
+    volumes:
+      - {appname}_dbdata:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE={appname}_db
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER={appname}
+      - MYSQL_PASSWORD={appname}123!
+    ports:
+      - 3306:3306
+
+volumes:
+  {appname}_dbdata:

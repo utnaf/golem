@@ -2,13 +2,11 @@
 
 namespace Golem;
 
-use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
+use Golem\Exception\GolemCopyPastaException;
 
 final class CopyPastaService
 {
-    const EXCEPTION_CODE = 42;
-
     /** @var string */
     private $vendorDir;
 
@@ -17,7 +15,7 @@ final class CopyPastaService
         $this->vendorDir = $vendorDir;
     }
 
-    /** @throws \Symfony\Component\Filesystem\Exception\IOException */
+    /** @throws \Golem\Exception\GolemCopyPastaException */
     public function moveFiles(): bool
     {
         $fs = new Filesystem;
@@ -27,7 +25,7 @@ final class CopyPastaService
         $makefile = $destinationDir.DIRECTORY_SEPARATOR.'Makefile';
 
         if ($fs->exists([$dockerDir, $makefile])) {
-            throw new IOException('Files alredy exists. Aborting.', static::EXCEPTION_CODE);
+            throw new GolemCopyPastaException('Files alredy exists. Aborting.');
         }
 
         $fs->mirror($this->getResourcesDir(), $destinationDir);

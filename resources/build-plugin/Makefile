@@ -1,4 +1,4 @@
-BASE_DOCKER_COMPOSE = docker-compose -f build/docker/docker-compose.yml
+BASE_DOCKER_COMPOSE = docker-compose
 
 up:
 	$(BASE_DOCKER_COMPOSE) up --force-recreate -d 
@@ -16,11 +16,11 @@ build:
 .PHONY: build
 
 composer:
-	$(BASE_DOCKER_COMPOSE) exec app /usr/local/bin/composer $(filter-out $@,$(MAKECMDGOALS))
+	$(BASE_DOCKER_COMPOSE) exec {appname}_web /usr/local/bin/composer $(filter-out $@,$(MAKECMDGOALS))
 .PHONY: composer
 
 sh:
-	$(BASE_DOCKER_COMPOSE) exec app bash
+	$(BASE_DOCKER_COMPOSE) exec {appname}_web bash
 .PHONY: sh
 
 rm:
