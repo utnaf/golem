@@ -13,7 +13,7 @@
   ],
   "autoload": {
     "psr-4": {
-        "Golem\\": "src/Golem/"
+        "Golem\\": ["src/Golem/", "test/"]
     }
   },
   "require": {
@@ -21,9 +21,15 @@
     "symfony/filesystem": "^2.7 || ^3.0 || ^4.0"
   },
   "require-dev": {
-    "composer/composer": "^1.0"
+    "composer/composer": "^1.0",
+    "phpunit/phpunit": "^7.5"
   },
   "extra": {
     "class": "Golem\\Plugin\\Build"
+  },
+  "scripts": {
+    "test": [
+      "phpunit"
+    ]
   }
 }

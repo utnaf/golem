@@ -31,10 +31,17 @@ final class CopyPastaService
         $fs->mirror($this->getResourcesDir(), $destinationDir);
 
         $dockerComposeFile = $dockerDir.DIRECTORY_SEPARATOR.'docker-compose.yml';
-        $content = file_get_contents($dockerComposeFile);
-        file_put_contents($dockerComposeFile, str_replace('{appname}', $this->getAppName(), $content));
+        $this->replaceAppNameInFile($dockerComposeFile);
 
+        $this->replaceAppNameInFile($makefile);
+        
         return true;
+    }
+
+    private function replaceAppNameInFile($filename)
+    {
+        $content = file_get_contents($filename);
+        file_put_contents($filename, str_replace('{appname}', $this->getAppName(), $content));
     }
 
     private function getResourcesDir(): string
