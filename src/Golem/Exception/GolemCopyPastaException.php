@@ -2,13 +2,14 @@
 
 namespace Golem\Exception;
 
-use Symfony\Component\Filesystem\Exception\IOException;
+final class GolemCopyPastaException extends \Exception {
 
-final class GolemCopyPastaException extends IOException {
-
-    public function __constructor($message)
+    /**
+     * @param string $message
+     */
+    public function __construct($message)
     {
-        parent::__constructor($message, 42);
+        parent::__construct($message, 42);
     }
 
 }
