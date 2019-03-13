@@ -6,7 +6,11 @@ services:
     build:
       context: ./build/docker/php
     volumes:
-      - ./:/var/www/html:ro
+      - ./:/var/www/html
+    environment:
+      - VIRTUAL_HOST=app.local
+      - APACHE_RUN_USER=www-data
+      - APACHE_RUN_GROUP=www-data
     ports:
       - 80:80
     depends_on:
