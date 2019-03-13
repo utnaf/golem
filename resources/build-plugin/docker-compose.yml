@@ -18,7 +18,7 @@ services:
 
   {appname}_database:
     container_name: {appname}_database
-    image: mariadb:10.3-bionic
+    image: mariadb:10.3
     volumes:
       - {appname}_dbdata:/var/lib/mysql
     environment:
