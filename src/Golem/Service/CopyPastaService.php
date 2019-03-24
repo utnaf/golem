@@ -10,6 +10,9 @@ final class CopyPastaService
     /** @var string */
     private $vendorDir;
 
+    /**
+     * @param string $vendorDir
+     */
     public function __construct($vendorDir)
     {
         $this->vendorDir = $vendorDir;
@@ -36,8 +39,6 @@ final class CopyPastaService
 
         $this->replaceAppNameInFile($dockerComposeFile);
         $this->replaceAppNameInFile($makefile);
-        
-        return true;
     }
 
     /**

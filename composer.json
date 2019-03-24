@@ -13,7 +13,7 @@
   ],
   "autoload": {
     "psr-4": {
-        "Golem\\": ["src/Golem/"]
+        "Golem\\": ["src/Golem/", "test/Golem/"]
     }
   },
   "require": {
@@ -22,9 +22,17 @@
     "symfony/filesystem": "^2.7 || ^3.0 || ^4.0"
   },
   "require-dev": {
-    "composer/composer": "^1.0"
+    "composer/composer": "^1.0",
+    "league/flysystem": "^1.0",
+    "mikey179/vfsStream": "^1.6",
+    "phpunit/phpunit": "^7.5"
   },
   "extra": {
     "class": "Golem\\Plugin\\Build"
+  },
+  "scripts": {
+    "test": [
+      " docker run --rm --name golem-phpunit-tests -v \"$PWD\":/usr/src/golem -w /usr/src/golem php:7.3-cli php vendor/bin/phpunit"
+    ]
   }
 }
