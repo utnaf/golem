@@ -3,6 +3,7 @@
 namespace Golem;
 
 use Golem\Service\CopyPastaService;
+use Golem\Service\ReplaceStuffService;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 
@@ -40,7 +41,7 @@ final class CopyPastaServiceTest extends TestCase
     public function testFilesAreMoved()
     {
         $rootDir = vfsStream::setup('golem-test-dir', null, $this->baseDirectoryStructure);
-        $copyPastaService = new CopyPastaService(vfsStream::url('golem-test-dir/vendor'));
+        $copyPastaService = new CopyPastaService(new ReplaceStuffService(), vfsStream::url('golem-test-dir/vendor'));
 
         $copyPastaService->moveFiles();
 
@@ -56,7 +57,7 @@ final class CopyPastaServiceTest extends TestCase
     public function testExceptionBuildDir()
     {
         $this->baseDirectoryStructure['build'] = [];
-        $copyPastaService = new CopyPastaService(vfsStream::url('golem-test-dir/vendor'));
+        $copyPastaService = new CopyPastaService(new ReplaceStuffService(), vfsStream::url('golem-test-dir/vendor'));
 
         $copyPastaService->moveFiles();
     }
@@ -68,7 +69,7 @@ final class CopyPastaServiceTest extends TestCase
     public function testExceptionMakefile()
     {
         $this->baseDirectoryStructure['Makefile'] = 'makestuff';
-        $copyPastaService = new CopyPastaService(vfsStream::url('golem-test-dir/vendor'));
+        $copyPastaService = new CopyPastaService(new ReplaceStuffService(), vfsStream::url('golem-test-dir/vendor'));
 
         $copyPastaService->moveFiles();
     }
@@ -80,7 +81,7 @@ final class CopyPastaServiceTest extends TestCase
     public function testExceptionDockerCompose()
     {
         $this->baseDirectoryStructure['docker-compose.yml'] = 'dockerstuff';
-        $copyPastaService = new CopyPastaService(vfsStream::url('golem-test-dir/vendor'));
+        $copyPastaService = new CopyPastaService(new ReplaceStuffService(), vfsStream::url('golem-test-dir/vendor'));
 
         $copyPastaService->moveFiles();
     }

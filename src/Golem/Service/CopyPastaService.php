@@ -10,49 +10,41 @@ final class CopyPastaService
     /** @var string */
     private $vendorDir;
 
+    /** @var ReplaceStuffService */
+    private $replaceStuffService;
+
     /**
+     * @param ReplaceStuffService $replaceStuffService
      * @param string $vendorDir
      */
-    public function __construct($vendorDir)
+    public function __construct($replaceStuffService, $vendorDir)
     {
+        $this->replaceStuffService = $replaceStuffService;
         $this->vendorDir = $vendorDir;
     }
 
-    /**
-     * @return bool
-     * @throws \Golem\Exception\GolemCopyPastaException
-     */
+    /** @throws \Golem\Exception\GolemCopyPastaException */
     public function moveFiles()
     {
         $fs = new Filesystem;
         $destinationDir = $this->getDestinationDir();
 
-        $dockerDir = $destinationDir.DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR.'docker';
-        $makefile = $destinationDir.DIRECTORY_SEPARATOR.'Makefile';
-        $dockerComposeFile = $destinationDir.DIRECTORY_SEPARATOR.'docker-compose.yml';
+        $dockerDir = $destinationDir . DIRECTORY_SEPARATOR . 'build' . DIRECTORY_SEPARATOR . 'docker';
+        $makefile = $destinationDir . DIRECTORY_SEPARATOR . 'Makefile';
+        $dockerComposeFile = $destinationDir . DIRECTORY_SEPARATOR . 'docker-compose.yml';
 
-        if ($fs->exists([$dockerDir, $makefile])) {
+        if ($fs->exists([$dockerDir, $makefile, $dockerComposeFile])) {
             throw new GolemCopyPastaException('Files alredy exists. Aborting.');
         }
 
         $fs->mirror($this->getResourcesDir(), $destinationDir);
 
-        $this->replaceAppNameInFile($dockerComposeFile);
-        $this->replaceAppNameInFile($makefile);
+        $appName = $this->getAppName();
+        $this->replaceStuffService->execute($makefile, $appName);
+        $this->replaceStuffService->execute($dockerComposeFile, $appName);
     }
 
-    /**
-     * @param string $filename
-     */
-    private function replaceAppNameInFile($filename)
-    {
-        $content = file_get_contents($filename);
-        file_put_contents($filename, str_replace('{appname}', $this->getAppName(), $content));
-    }
-
-    /**
-     * @return string
-     */
+    /** @return string */
     private function getResourcesDir()
     {
         $resourcesDir = implode(
@@ -61,22 +53,18 @@ final class CopyPastaService
         );
 
         return $this->vendorDir
-            .DIRECTORY_SEPARATOR
-            .$resourcesDir
-            .DIRECTORY_SEPARATOR;
+            . DIRECTORY_SEPARATOR
+            . $resourcesDir
+            . DIRECTORY_SEPARATOR;
     }
 
-    /**
-     * @return string
-     */
+    /** @return string */
     private function getDestinationDir()
     {
         return dirname($this->vendorDir);
     }
 
-    /**
-     * @return string
-     */
+    /** @return string */
     private function getAppName()
     {
         return preg_replace('/[^a-zA-Z]*/i', '', basename($this->getDestinationDir()));
