@@ -1,47 +1,18 @@
 <?php
 
-namespace Golem;
+namespace Golem\Service;
 
-use Golem\Service\CopyPastaService;
-use Golem\Service\ReplaceStuffService;
+use Golem\FilesystemTestCase;
 use org\bovigo\vfs\vfsStream;
-use PHPUnit\Framework\TestCase;
 
-final class CopyPastaServiceTest extends TestCase
+final class CopyPastaServiceTest extends FilesystemTestCase
 {
-    /** @var array */
-    private $baseDirectoryStructure;
-
-    public function setUp()
-    {
-        $this->baseDirectoryStructure = [
-            'vendor' => [
-                'utnaf' => [
-                    'golem' => [
-                        'resources' => [
-                            'build-plugin' => [
-                                'docker-compose.yml' => 'dockerstuff',
-                                'Makefile' => 'makefilestuff',
-                                'build' => [
-                                    'docker' => [
-                                        'php' => [
-                                            'Dockerfile' => 'dockerfilestuff'
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
-        ];
-    }
 
     /** @testdox Given a vendor directory when moveFiles is called then files are moved in the vendor parent directory */
     public function testFilesAreMoved()
     {
-        $rootDir = vfsStream::setup('golem-test-dir', null, $this->baseDirectoryStructure);
-        $copyPastaService = new CopyPastaService(new ReplaceStuffService(), vfsStream::url('golem-test-dir/vendor'));
+        $rootDir = $this->getRootDir();
+        $copyPastaService = new CopyPastaService(new ReplaceStuffService(), vfsStream::url('golem-test-app/vendor'));
 
         $copyPastaService->moveFiles();
 
@@ -56,8 +27,9 @@ final class CopyPastaServiceTest extends TestCase
      */
     public function testExceptionBuildDir()
     {
-        $this->baseDirectoryStructure['build'] = [];
-        $copyPastaService = new CopyPastaService(new ReplaceStuffService(), vfsStream::url('golem-test-dir/vendor'));
+        $rootDir = $this->getRootDir(['build' => ['docker' => ['somefile' => 'somefilecontent']]]);
+
+        $copyPastaService = new CopyPastaService(new ReplaceStuffService(), $rootDir->getChild('vendor')->url());
 
         $copyPastaService->moveFiles();
     }
@@ -68,8 +40,9 @@ final class CopyPastaServiceTest extends TestCase
      */
     public function testExceptionMakefile()
     {
-        $this->baseDirectoryStructure['Makefile'] = 'makestuff';
-        $copyPastaService = new CopyPastaService(new ReplaceStuffService(), vfsStream::url('golem-test-dir/vendor'));
+        $rootDir = $this->getRootDir(['Makefile' => 'makefilestuff']);
+
+        $copyPastaService = new CopyPastaService(new ReplaceStuffService(), $rootDir->getChild('vendor')->url());
 
         $copyPastaService->moveFiles();
     }
@@ -80,8 +53,8 @@ final class CopyPastaServiceTest extends TestCase
      */
     public function testExceptionDockerCompose()
     {
-        $this->baseDirectoryStructure['docker-compose.yml'] = 'dockerstuff';
-        $copyPastaService = new CopyPastaService(new ReplaceStuffService(), vfsStream::url('golem-test-dir/vendor'));
+        $rootDir = $this->getRootDir(['docker-compose.yml' => 'dockerstuff']);
+        $copyPastaService = new CopyPastaService(new ReplaceStuffService(), $rootDir->getChild('vendor')->url());
 
         $copyPastaService->moveFiles();
     }

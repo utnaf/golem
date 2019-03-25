@@ -13,7 +13,7 @@
   ],
   "autoload": {
     "psr-4": {
-        "Golem\\": ["src/Golem/", "test/Golem/"]
+        "Golem\\": ["src/Golem/", "test/"]
     }
   },
   "require": {

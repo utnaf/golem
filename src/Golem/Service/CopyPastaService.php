@@ -33,7 +33,10 @@ final class CopyPastaService
         $makefile = $destinationDir . DIRECTORY_SEPARATOR . 'Makefile';
         $dockerComposeFile = $destinationDir . DIRECTORY_SEPARATOR . 'docker-compose.yml';
 
-        if ($fs->exists([$dockerDir, $makefile, $dockerComposeFile])) {
+        if ($fs->exists($dockerDir)
+            || $fs->exists($makefile)
+            || $fs->exists($dockerComposeFile)
+        ) {
             throw new GolemCopyPastaException('Files alredy exists. Aborting.');
         }
 
