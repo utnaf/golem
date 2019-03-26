@@ -2,7 +2,6 @@
 
 namespace Golem\Service;
 
-use Symfony\Component\Filesystem\Filesystem;
 use Golem\Exception\GolemCopyPastaException;
 
 final class CopyPastaService
@@ -26,25 +25,39 @@ final class CopyPastaService
     /** @throws \Golem\Exception\GolemCopyPastaException */
     public function moveFiles()
     {
-        $fs = new Filesystem;
         $destinationDir = $this->getDestinationDir();
 
         $dockerDir = $destinationDir . DIRECTORY_SEPARATOR . 'build' . DIRECTORY_SEPARATOR . 'docker';
         $makefile = $destinationDir . DIRECTORY_SEPARATOR . 'Makefile';
         $dockerComposeFile = $destinationDir . DIRECTORY_SEPARATOR . 'docker-compose.yml';
 
-        if ($fs->exists($dockerDir)
-            || $fs->exists($makefile)
-            || $fs->exists($dockerComposeFile)
+        if (file_exists($dockerDir)
+            || file_exists($makefile)
+            || file_exists($dockerComposeFile)
         ) {
             throw new GolemCopyPastaException('Files alredy exists. Aborting.');
         }
 
-        $fs->mirror($this->getResourcesDir(), $destinationDir);
+        $this->mirror($this->getResourcesDir(), $destinationDir);
 
         $appName = $this->getAppName();
         $this->replaceStuffService->execute($makefile, $appName);
         $this->replaceStuffService->execute($dockerComposeFile, $appName);
+    }
+
+    private function mirror($fromDir, $toDir)
+    {
+        foreach (
+            $iterator = new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator($fromDir, \RecursiveDirectoryIterator::SKIP_DOTS),
+                \RecursiveIteratorIterator::SELF_FIRST) as $item
+        ) {
+            if ($item->isDir()) {
+                mkdir($toDir . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+            } else {
+                copy($item, $toDir . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+            }
+        }
     }
 
     /** @return string */
