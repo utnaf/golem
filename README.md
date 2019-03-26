@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/utnaf/golem.svg?branch=master)](https://travis-ci.org/utnaf/golem)
+[![Packagist Pre Release](https://img.shields.io/packagist/vpre/utnaf/golem.svg)](https://packagist.org/packages/utnaf)
+
 # Golem
 
 **Long story short**: I got a pretty damn good name for an app and I need something to build around it. *No clue*. So I decided to make yet another Docker bootstrap for PHP. Just to have a running environment with PHP, nginx and mysql in a few commands. I usually do this when I need to do some small stuff, tests, package testing.
