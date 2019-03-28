@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/utnaf/golem.svg?branch=master)](https://travis-ci.org/utnaf/golem)
-[![Packagist Pre Release](https://img.shields.io/packagist/vpre/utnaf/golem.svg)](https://packagist.org/packages/utnaf)
+[![Packagist](https://img.shields.io/packagist/v/utnaf/golem.svg)](https://packagist.org/packages/utnaf/golem)
 
 # Golem
 
