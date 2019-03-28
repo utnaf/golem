@@ -39,7 +39,7 @@ Now you can visit [http://localhost](http://localhost) or add an entry to your `
 127.0.0.1 app.local
 ```
 
-and then visit [http://app.local:8080](http://app.local:8080)
+and then visit [http://app.local](http://app.local)
 
 #### Note for docker-machine user
 If you are using any kind of docker-machine please replace `127.0.0.1` with the IP of your docker-machine.
