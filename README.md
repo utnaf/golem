@@ -3,8 +3,9 @@
 
 # Golem
 
-**Long story short**: I got a pretty damn good name for an app and I need something to build around it. *No clue*. So I decided to make yet another Docker bootstrap for PHP. Just to have a running environment with PHP, nginx and mysql in a few commands. I usually do this when I need to do some small stuff, tests, package testing.
-Since is a Composer plugin, it can be use on existing projects too as long as these files does not exist:
+**Long story short**: I got a pretty damn good name for an app and I need something to build around it. *No clue*. So I decided to make yet another Docker bootstrap for PHP. Just to have a running environment with PHP, apache and mysql in a few commands. I usually do this when I need to do some small stuff, playgrounds, package testing, that needs a fast boostrap.
+
+Since is a Composer plugin, it can be used on existing projects as long as these files and directories does not exist:
  * `./Makefile`
  * `./docker-compose.yml`
  * `./build/docker`
@@ -25,7 +26,7 @@ Just run:
 $ make up
 ```
 
-Now you can visit [http://localhost](http://localhost) or, if you want to be fancy, add an entry to your `/etc/hosts` file:
+Now you can visit [http://localhost](http://localhost) or add an entry to your `/etc/hosts` file:
 ```
 127.0.0.1 app.local
 ```
