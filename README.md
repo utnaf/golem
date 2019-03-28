@@ -19,6 +19,14 @@ Is a Composer plugin, so just require it in your project.
 composer require --dev utnaf/golem
 ```
 
+### What I have?
+
+You have:
+ - `php:7.3-apache` Docker image with a virtual host configured on [http://app.local](http://app.local)
+ - latest Composer version 
+ - `mariadb:10.3` Docker image
+ - a `Makefile` to easily handle your docker images
+
 ### How do I make it work?
 
 Just run:
@@ -45,6 +53,7 @@ Ex: if your project is in the directory `my-awesome-project` the db hostname wil
 There is a Makefile that allows you to easily interact with the docker container.
 
 ``` bash
+$ make up
 $ make kill
 $ make build
 $ make reset
