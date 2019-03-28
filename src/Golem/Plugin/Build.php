@@ -7,7 +7,8 @@ use Composer\EventDispatcher\EventSubscriberInterface;
 use Composer\Installer\PackageEvents;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
-use Golem\CopyPastaService;
+use Golem\Service\CopyPastaService;
+use Golem\Service\ReplaceStuffService;
 
 class Build implements PluginInterface, EventSubscriberInterface
 {
@@ -24,6 +25,9 @@ class Build implements PluginInterface, EventSubscriberInterface
         $this->io = $io;
     }
 
+    /**
+     * @return array
+     */
     public static function getSubscribedEvents()
     {
         return [
@@ -35,12 +39,12 @@ class Build implements PluginInterface, EventSubscriberInterface
     public function copyFiles()
     {
         try {
-            (new CopyPastaService($this->composer->getConfig()->get('vendor-dir')))->moveFiles();
+            (new CopyPastaService(
+                new ReplaceStuffService(),
+                $this->composer->getConfig()->get('vendor-dir'))
+            )->moveFiles();
         } catch (\Exception $e) {
-            if ($e->getCode() !== CopyPastaService::EXCEPTION_CODE) {
-                $this->io->write('<info>utnaf/golem: '.$e->getMessage().'</info>');
-            }
-
+            $this->io->write('<error>utnaf/golem: ' . $e->getMessage() . '</error>');
             return;
         }
 

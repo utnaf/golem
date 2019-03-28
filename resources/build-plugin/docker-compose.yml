@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  {appname}_web:
+    container_name: {appname}_web
+    build:
+      context: ./build/docker/php
+    volumes:
+      - ./:/var/www/html
+    environment:
+      - VIRTUAL_HOST={appname}.local
+      - APACHE_RUN_USER=www-data
+      - APACHE_RUN_GROUP=www-data
+    ports:
+      - 80:80
+    depends_on:
+      - {appname}_database
+
+  {appname}_database:
+    container_name: {appname}_database
+    image: mariadb:10.3
+    volumes:
+      - {appname}_dbdata:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE={appname}_db
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER={appname}
+      - MYSQL_PASSWORD={appname}123!
+    ports:
+      - 3306:3306
+
+volumes:
+  {appname}_dbdata:
