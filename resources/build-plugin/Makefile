@@ -16,7 +16,7 @@ build:
 .PHONY: build
 
 composer:
-	$(BASE_DOCKER_COMPOSE) exec {appname}_web /usr/local/bin/composer $(filter-out $@,$(MAKECMDGOALS))
+	$(BASE_DOCKER_COMPOSE) exec {appname}_web composer $(filter-out $@,$(MAKECMDGOALS))
 .PHONY: composer
 
 sh:
