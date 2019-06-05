@@ -109,11 +109,11 @@ build:
 .PHONY: build
 
 composer:
-	$(BASE_DOCKER_COMPOSE) exec golemtestapp_web composer $(filter-out $@,$(MAKECMDGOALS))
+	$(BASE_DOCKER_COMPOSE) exec -u $(id -u):$(id -g) -e HOME=/tmp/ golemtestapp_web composer $(filter-out $@,$(MAKECMDGOALS))
 .PHONY: composer
 
 sh:
-	$(BASE_DOCKER_COMPOSE) exec golemtestapp_web bash
+	$(BASE_DOCKER_COMPOSE) exec -u $(id -u):$(id -g) -e HOME=/tmp/ golemtestapp_web bash
 .PHONY: sh
 
 rm:
