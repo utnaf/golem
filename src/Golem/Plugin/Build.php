@@ -58,7 +58,7 @@ class Build implements PluginInterface, EventSubscriberInterface
             return;
         }
 
-        $this->io->write('<info>utnaf/golem: build files copied succesfully.</info>');
+        $this->io->write('<info>build files copied succesfully.</info>');
     }
 
 }

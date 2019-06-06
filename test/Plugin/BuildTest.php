@@ -34,7 +34,7 @@ final class BuildTest extends FilesystemTestCase
 
         $buildPlugin->copyFiles($this->mockPackageEvent());
 
-        $io->write('<info>utnaf/golem: build files copied succesfully.</info>')->shouldHaveBeenCalledOnce();
+        $io->write('<info>build files copied succesfully.</info>')->shouldHaveBeenCalledOnce();
 
         $this->assertTrue($rootDir->hasChild('build/docker/php/Dockerfile'));
         $this->assertTrue($rootDir->hasChild('Makefile'));
