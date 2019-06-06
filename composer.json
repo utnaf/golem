@@ -2,7 +2,7 @@
   "name": "utnaf/golem",
   "description": "Despite the cool name, it's just a docker bootstrap with PHP, Apache and MariaDb.",
   "type": "composer-plugin",
-  "keywords": ["docker", "php", "apache", "mysql"],
+  "keywords": ["docker", "php", "apache", "mysql", "bootstrap", "boilerplate"],
   "homepage": "https://github.com/utnaf/golem",
   "license": "WTFPL",
   "authors": [
@@ -30,7 +30,7 @@
   },
   "scripts": {
     "test": [
-      " docker run --rm --name golem-phpunit-tests -v \"$PWD\":/usr/src/golem -w /usr/src/golem php:7.3-cli php vendor/bin/phpunit"
+      "docker run --rm --name golem-phpunit-tests -v \"$PWD\":/usr/src/golem -w /usr/src/golem php:7.3-cli-alpine php vendor/bin/phpunit"
     ]
   }
 }

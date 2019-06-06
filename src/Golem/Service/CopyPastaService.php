@@ -35,7 +35,7 @@ final class CopyPastaService
             || file_exists($makefile)
             || file_exists($dockerComposeFile)
         ) {
-            throw new GolemCopyPastaException('Files alredy exists. Aborting.');
+            throw new GolemCopyPastaException('Files alredy exist. Not overwriting.');
         }
 
         $this->mirror($this->getResourcesDir(), $destinationDir);

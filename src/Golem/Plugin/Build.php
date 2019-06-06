@@ -3,7 +3,9 @@
 namespace Golem\Plugin;
 
 use Composer\Composer;
+use Composer\DependencyResolver\GenericRule;
 use Composer\EventDispatcher\EventSubscriberInterface;
+use Composer\Installer\PackageEvent;
 use Composer\Installer\PackageEvents;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
@@ -36,15 +38,23 @@ class Build implements PluginInterface, EventSubscriberInterface
         ];
     }
 
-    public function copyFiles()
+    public function copyFiles(PackageEvent $event)
     {
+        /** @var GenericRule $reason */
+        $reason = $event->getOperation()->getReason();
+        $isMe = $reason->getJob()['packageName'] === 'utnaf/golem';
+
+        if(!$isMe) {
+            return;
+        }
+
         try {
             (new CopyPastaService(
                 new ReplaceStuffService(),
                 $this->composer->getConfig()->get('vendor-dir'))
             )->moveFiles();
         } catch (\Exception $e) {
-            $this->io->write('<error>utnaf/golem: ' . $e->getMessage() . '</error>');
+            $this->io->write('<comment>' . $e->getMessage() . '</comment>');
             return;
         }
 
