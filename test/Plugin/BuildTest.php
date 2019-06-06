@@ -4,6 +4,9 @@ namespace Golem\Plugin;
 
 use Composer\Composer;
 use Composer\Config;
+use Composer\DependencyResolver\GenericRule;
+use Composer\DependencyResolver\Operation\OperationInterface;
+use Composer\Installer\PackageEvent;
 use Composer\IO\IOInterface;
 use Golem\FilesystemTestCase;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -29,9 +32,9 @@ final class BuildTest extends FilesystemTestCase
         $buildPlugin = new Build();
         $buildPlugin->activate($composer->reveal(), $io->reveal());
 
-        $buildPlugin->copyFiles();
+        $buildPlugin->copyFiles($this->mockPackageEvent());
 
-        $io->write('<info>utnaf/golem: build files copied succesfully.</info>')->shouldHaveBeenCalledOnce();
+        $io->write('<info>build files copied succesfully.</info>')->shouldHaveBeenCalledOnce();
 
         $this->assertTrue($rootDir->hasChild('build/docker/php/Dockerfile'));
         $this->assertTrue($rootDir->hasChild('Makefile'));
@@ -41,4 +44,21 @@ final class BuildTest extends FilesystemTestCase
         $this->assertEquals($this->getCompliledDockerCompose(), file_get_contents($rootDir->getChild('docker-compose.yml')->url()));
     }
 
+    private function mockPackageEvent()
+    {
+        /** @var ObjectProphecy|GenericRule $reason */
+        $reason = $this->prophesize(GenericRule::class);
+        $reason->getJob()->willReturn([
+            'packageName' => 'utnaf/golem'
+        ]);
+
+        $operation = $this->prophesize(OperationInterface::class);
+        $operation->getReason()->willReturn($reason->reveal());
+
+        /** @var ObjectProphecy|PackageEvent $packageEvent */
+        $packageEvent = $this->prophesize(PackageEvent::class);
+        $packageEvent->getOperation()->willReturn($operation->reveal());
+
+        return $packageEvent->reveal();
+    }
 }

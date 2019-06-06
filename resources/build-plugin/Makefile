@@ -16,11 +16,11 @@ build:
 .PHONY: build
 
 composer:
-	$(BASE_DOCKER_COMPOSE) exec {appname}_web composer $(filter-out $@,$(MAKECMDGOALS))
+	$(BASE_DOCKER_COMPOSE) exec -u $(id -u):$(id -g) -e HOME=/tmp/ {appname}_web composer $(filter-out $@,$(MAKECMDGOALS))
 .PHONY: composer
 
 sh:
-	$(BASE_DOCKER_COMPOSE) exec {appname}_web bash
+	$(BASE_DOCKER_COMPOSE) exec -u $(id -u):$(id -g) -e HOME=/tmp/ {appname}_web bash
 .PHONY: sh
 
 rm:
