@@ -2,33 +2,23 @@ BASE_DOCKER_COMPOSE = docker-compose
 
 up:
 	$(BASE_DOCKER_COMPOSE) up --force-recreate -d 
-.PHONY: up
 
 kill:
 	$(BASE_DOCKER_COMPOSE) kill
-.PHONY: kill
 
 build:
 	$(BASE_DOCKER_COMPOSE) stop \
 	&& $(BASE_DOCKER_COMPOSE) rm -f \
 	&& $(BASE_DOCKER_COMPOSE) pull \
 	&& $(BASE_DOCKER_COMPOSE) build --no-cache
-.PHONY: build
 
 composer:
-	$(BASE_DOCKER_COMPOSE) exec -u $(id -u):$(id -g) -e HOME=/tmp/ {appname}_web composer $(filter-out $@,$(MAKECMDGOALS))
-.PHONY: composer
+	$(BASE_DOCKER_COMPOSE) exec -u $(shell id -u):$(shell id -g) -e HOME=/tmp/ {appname}_web composer $(filter-out $@,$(MAKECMDGOALS))
 
 sh:
-	$(BASE_DOCKER_COMPOSE) exec -u $(id -u):$(id -g) -e HOME=/tmp/ {appname}_web bash
-.PHONY: sh
+	$(BASE_DOCKER_COMPOSE) exec -u $(shell id -u):$(shell id -g) -e HOME=/tmp/ {appname}_web bash
 
 rm:
 	$(BASE_DOCKER_COMPOSE) rm -f
-.PHONY: rm
 
 reset: kill rm up
-.PHONY: reset
-
-%:
-	@:
